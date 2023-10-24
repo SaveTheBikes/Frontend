@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/maps_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,9 +16,6 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
       body: Center(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -26,13 +24,13 @@ class HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Spacer(),
-            Image.asset("assets/logo.png"),
+            Text("Save The Bikes",style:Theme.of(context).textTheme.displayLarge, textAlign:TextAlign.center),
             const Spacer(flex: 2),
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Username',
+                labelText: 'Username or Email',
               ),
             ),
             const SizedBox(height: 10),
@@ -44,7 +42,7 @@ class HomePageState extends State<HomePage> {
                 labelText: 'Password',
               ),
             ),
-            const Spacer(flex: 2),
+            const Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -57,14 +55,39 @@ class HomePageState extends State<HomePage> {
                           .withOpacity(1)), // Set the background color
                 ),
                 onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => ()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MapsPage()));
                 },
                 child: const Text("Login", style: TextStyle(color: Colors.black)),
 
               ),
             ),
-            const Spacer(flex: 3)
+            const SizedBox(height:10),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  
+                  minimumSize: MaterialStateProperty.all<Size>(const Size(150, 60)),
+
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Theme.of(context)
+                          .primaryColor
+                          .withOpacity(1)), // Set the background color
+                        
+
+                ),
+                onPressed: () {
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => ()));
+                },
+                child: const Text("Register", style: TextStyle(color: Colors.black)),
+
+              ),
+            ),
+
+            const Spacer(flex: 2)
           ],
         ),
       )),
