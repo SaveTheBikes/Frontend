@@ -4,6 +4,7 @@ import 'package:frontend/pages/home_page.dart';
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,21 +15,13 @@ class MyApp extends StatelessWidget {
       title: 'SaveTheBikes',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 77, 145, 245),
-        fontFamily: 'Arizona',
-        useMaterial3: true,
-        textTheme: const TextTheme(
-        displayLarge:  TextStyle(
-        fontSize:72,
-        fontWeight: FontWeight.bold
-        )
-        )
-
-
-      ),
+          primaryColor: const Color.fromARGB(255, 77, 145, 245),
+          fontFamily: 'Arizona',
+          useMaterial3: true,
+          textTheme: const TextTheme(
+              displayLarge:
+                  TextStyle(fontSize: 72, fontWeight: FontWeight.bold))),
       home: const HomePage(),
     );
   }
 }
-
-

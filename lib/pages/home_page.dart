@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/maps_page.dart';
+import 'package:frontend/reqs.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,7 +25,9 @@ class HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Spacer(),
-            Text("Save The Bikes",style:Theme.of(context).textTheme.displayLarge, textAlign:TextAlign.center),
+            Text("Save The Bikes",
+                style: Theme.of(context).textTheme.displayLarge,
+                textAlign: TextAlign.center),
             const Spacer(flex: 2),
             TextField(
               controller: nameController,
@@ -47,7 +50,8 @@ class HomePageState extends State<HomePage> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all<Size>(const Size(150, 60)),
+                  minimumSize:
+                      MaterialStateProperty.all<Size>(const Size(150, 60)),
 
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Theme.of(context)
@@ -55,38 +59,39 @@ class HomePageState extends State<HomePage> {
                           .withOpacity(1)), // Set the background color
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MapsPage()));
+                  login(nameController.text, passwordController.text)
+                      .then((success) {
+                    if (success) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MapsPage()));
+                    }
+                  });
                 },
-                child: const Text("Login", style: TextStyle(color: Colors.black)),
-
+                child:
+                    const Text("Login", style: TextStyle(color: Colors.black)),
               ),
             ),
-            const SizedBox(height:10),
-
+            const SizedBox(height: 10),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  
-                  minimumSize: MaterialStateProperty.all<Size>(const Size(150, 60)),
+                  minimumSize:
+                      MaterialStateProperty.all<Size>(const Size(150, 60)),
 
                   backgroundColor: MaterialStateProperty.all<Color>(
                       Theme.of(context)
                           .primaryColor
                           .withOpacity(1)), // Set the background color
-                        
-
                 ),
                 onPressed: () {
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (context) => ()));
                 },
-                child: const Text("Register", style: TextStyle(color: Colors.black)),
-
+                child: const Text("Register",
+                    style: TextStyle(color: Colors.black)),
               ),
             ),
-
             const Spacer(flex: 2)
           ],
         ),
@@ -94,4 +99,3 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
-
