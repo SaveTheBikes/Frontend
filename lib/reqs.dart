@@ -1,6 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 String url = "http://127.0.0.1:5000";
 
 Map<String, String> headers = {"Content-type": "application/json"};
@@ -12,6 +14,11 @@ Future<bool> login(String email, String password) async {
   final response = await http.post(Uri.parse("$url/auth/login"),
       headers: headers, body: body);
   var res = jsonDecode(response.body)["access_token"];
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  
+  await prefs.setString('access_token', res);
+
   return true;
 }
 

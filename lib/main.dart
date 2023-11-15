@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/home_page.dart';
+import 'package:frontend/pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,8 +20,10 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: const TextTheme(
               displayLarge:
-                  TextStyle(fontSize: 72, fontWeight: FontWeight.bold))),
-      home: const HomePage(),
+                  TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              displayMedium:
+                  TextStyle(fontSize: 36, fontWeight: FontWeight.bold))),
+      home: const LoginPage(),
     );
   }
 }
