@@ -45,3 +45,7 @@ app.*.map.json
 
 AppDelegate.swift
 .vscode
+
+Podfile.lock
+project.pbxproj
+
