@@ -33,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       // You can customize the appearance of your splash screen here
       body: Center(
-        child: FlutterLogo(size: 150),
+        child: Image.asset("assets/logo.png"),
       ),
     );
   }

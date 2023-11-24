@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/login_page.dart';
+import 'package:frontend/pages/splash_page.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -23,33 +25,7 @@ class MyApp extends StatelessWidget {
                   TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
               displayMedium:
                   TextStyle(fontSize: 36, fontWeight: FontWeight.bold))),
-      home: SplashScreen(),
-    );
-  }
-}
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Image.asset('assets/logo.png'),
-      ),
+      home: SplashPage(),
     );
   }
 }

@@ -10,9 +10,20 @@ class MapsPage extends StatefulWidget {
 }
 
 class MapsPageState extends State<MapsPage> {
+  Set<Marker> markers = {};
+  @override
+    void initState() {
+      bikeMarkers();
+      super.initState();
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GoogleMap(initialCameraPosition: CameraPosition(target: loc)));
+        appBar: AppBar(),
+        body: GoogleMap(initialCameraPosition: CameraPosition(target: loc),
+        markers: markers
+        ));
+        
   }
+  void bikeMarkers(){}
 }

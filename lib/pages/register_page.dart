@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/maps_page.dart';
+import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/reqs.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -24,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Create an Account",
+              Text("Register",
                   style: Theme.of(context).textTheme.displayMedium,
                   textAlign: TextAlign.left),
               const SizedBox(height: 30),
@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MapsPage(),
+                          builder: (context) => const LoginPage(),
                         ),
                       );
                     });
@@ -82,13 +82,13 @@ class _RegisterPageState extends State<RegisterPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   TextButton(
                     onPressed: () {
                       // Navigate to the login page
                       Navigator.pop(context);
                     },
-                    child: Text("Login"),
+                    child: const Text("Login"),
                   ),
                 ],
               ),

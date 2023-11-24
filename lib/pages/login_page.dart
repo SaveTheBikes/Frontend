@@ -24,8 +24,11 @@ class LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+              Text("Login",
+                  style: Theme.of(context).textTheme.displayMedium,
+                  textAlign: TextAlign.left),
+
             const Spacer(),
-            Image.asset("assets/logo.png"),
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
