@@ -74,8 +74,8 @@ class Bike {
         model: json['model'],
         picture: json['picture'],
         title: json['title'],
-        lat: 100.0,
-        lon: 100.0,
+        lat: json['lat'],
+        lon: json['lon'],
         id: json['id']);
   }
   static List<Bike> listFromJson(List<dynamic> jsonList) {

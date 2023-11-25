@@ -18,7 +18,6 @@ class _SplashPageState extends State<SplashPage> {
 
     Future.delayed(Duration(seconds: 2)).then((value) {
     Permission.locationWhenInUse.request().then((value){
-      print(value);
       verify_token().then((value) {
         if (value) {
           Navigator.of(context).pushReplacement(

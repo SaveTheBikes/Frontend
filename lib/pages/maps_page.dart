@@ -39,6 +39,9 @@ class MapsPageState extends State<MapsPage> {
          IconButton(onPressed: (){}, icon: Icon(Icons.person)) ],
         ),
         body: currentPosition!=null ? GoogleMap(
+        onTap: (_){
+        Navigator.pop(context);
+        },
             initialCameraPosition: CameraPosition(target: LatLng(currentPosition!.latitude, currentPosition!.longitude)),
             markers: markers): Center(child:CircularProgressIndicator()));
   }
@@ -55,6 +58,11 @@ Set<Marker> newMarkers = {};
         infoWindow: InfoWindow(
           title: bike.title,
           snippet: 'ID: ${bike.id}',
+          onTap: (){
+          showBikeDetailsBottomSheet(context, bike);
+
+          }
+        
         ),
       );
 
@@ -77,6 +85,30 @@ void getCurrentLocation() async {
     } catch (e) {
       print("Error getting current location: $e");
     }
+  }
+void showBikeDetailsBottomSheet(BuildContext context, Bike bike) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Bike Details',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text('Title: ${bike.title}'),
+              Text('ID: ${bike.id}'),
+              // Add more bike details as needed
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
