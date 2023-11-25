@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/splash_page.dart';
 
-
 void main() {
   runApp(const MyApp());
 }

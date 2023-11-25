@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/maps_page.dart';
 import 'package:frontend/reqs.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -16,6 +17,8 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(Duration(seconds: 2)).then((value) {
+    Permission.locationWhenInUse.request().then((value){
+      print(value);
       verify_token().then((value) {
         if (value) {
           Navigator.of(context).pushReplacement(
@@ -25,6 +28,11 @@ class _SplashPageState extends State<SplashPage> {
               MaterialPageRoute(builder: (context) => LoginPage()));
         }
       });
+
+
+    }
+    );
+
     });
   }
 

@@ -24,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Register",
+              Text("Create an Account",
                   style: Theme.of(context).textTheme.displayMedium,
                   textAlign: TextAlign.left),
               const SizedBox(height: 30),
@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       // Navigate to the login page
                       Navigator.pop(context);
                     },
-                    child: const Text("Login"),
+                    child: Text("Login"),
                   ),
                 ],
               ),

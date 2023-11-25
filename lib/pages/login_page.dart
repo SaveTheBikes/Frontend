@@ -24,11 +24,8 @@ class LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-              Text("Login",
-                  style: Theme.of(context).textTheme.displayMedium,
-                  textAlign: TextAlign.left),
-
             const Spacer(),
+            Image.asset("assets/logo.png"),
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
@@ -74,7 +71,7 @@ class LoginPageState extends State<LoginPage> {
                 Text("Don't have an account?"),
                 TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => RegisterPage()));
