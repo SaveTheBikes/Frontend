@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/profile_page.dart';
+import 'package:frontend/pages/profile_page.dart';
 import 'package:frontend/pages/report_bike_dialog.dart';
 import 'package:frontend/reqs.dart';
 import 'package:geolocator/geolocator.dart';
@@ -56,6 +57,7 @@ class MapsPageState extends State<MapsPage> {
                 },
                 icon: Icon(Icons.person))
           ],
+          
         ),
         body: currentPosition != null
             ? GoogleMap(

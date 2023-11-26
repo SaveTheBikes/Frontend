@@ -23,7 +23,7 @@ Future<bool> login(String email, String password) async {
   await prefs.setString('access_token', res["access_token"]);
   await prefs.setInt('userID', res["userID"]);
 
-  return true;
+  return true; //test
 }
 
 Future<bool> register(String email, String username, String password) async {
@@ -111,3 +111,47 @@ DateTime parseDateString(String dateString) {
   return dateFormat.parse(dateString);
 }
 
+class Profile {
+  String username;
+  String email;
+  
+
+  Profile({
+    required this.username,
+    required this.email,
+    
+  });
+
+  factory Profile.fromJson(Map<String, dynamic> json) {
+   
+
+    return Profile(
+      username: json['accountname'],
+      email: json['email'],
+      
+    );
+  }
+}
+
+Future<int> getUserIDFromDatabase() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  int userID = prefs.getInt('userID') ?? 0; // Replace 0 with a default value if 'userID' is not set
+  return userID;
+}
+
+Future<Profile> getProfile() async {
+  int userID = await getUserIDFromDatabase();
+  var payLoad = {"userID": userID};
+  String body = jsonEncode(payLoad);
+  final response = await http.post(Uri.parse("$url/auth/getUser"),body: body, headers: await header_with_token());
+  if (response.statusCode == 200) {
+    return Profile.fromJson(json.decode(response.body));
+  } else {
+    print('Status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    throw Exception('Failed to load profile');
+  }
+}
+
+
+  

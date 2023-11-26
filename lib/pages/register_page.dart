@@ -86,7 +86,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextButton(
                     onPressed: () {
                       // Navigate to the login page
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginPage()));
                     },
                     child: Text("Login"),
                   ),
