@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/login_page.dart';
+import 'package:frontend/pages/profile_page.dart';
+import 'package:frontend/pages/report_bike_dialog.dart';
 import 'package:frontend/reqs.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 
 class MapsPage extends StatefulWidget {
   const MapsPage({Key? key}) : super(key: key);
@@ -35,58 +38,81 @@ class MapsPageState extends State<MapsPage> {
                 }));
               },
               icon: Icon(Icons.logout)),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.report)),
-         IconButton(onPressed: (){}, icon: Icon(Icons.person)) ],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ReportBikeDialog();
+                      });
+                },
+                icon: Icon(Icons.report)),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ProfilePage();
+                  }));
+                },
+                icon: Icon(Icons.person))
+          ],
         ),
-        body: currentPosition!=null ? GoogleMap(
-        onTap: (_){
-        Navigator.pop(context);
-        },
-            initialCameraPosition: CameraPosition(target: LatLng(currentPosition!.latitude, currentPosition!.longitude)),
-            markers: markers): Center(child:CircularProgressIndicator()));
+        body: currentPosition != null
+            ? GoogleMap(
+                onTap: (_) {
+                  Navigator.pop(context);
+                },
+                initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                        currentPosition!.latitude, currentPosition!.longitude),
+                    zoom: 10),
+                markers: markers)
+            : Center(child: CircularProgressIndicator()));
   }
 
   void bikeMarkers(List<Bike> bikes) {
-Set<Marker> newMarkers = {};
+    Set<Marker> newMarkers = {};
 
-  for (var bike in bikes) {
+    for (var bike in bikes) {
       LatLng bikeLocation = LatLng(bike.lat, bike.lon);
 
       Marker marker = Marker(
         markerId: MarkerId(bike.id.toString()),
         position: bikeLocation,
         infoWindow: InfoWindow(
-          title: bike.title,
-          snippet: 'ID: ${bike.id}',
-          onTap: (){
-          showBikeDetailsBottomSheet(context, bike);
-
-          }
-        
-        ),
+            title: bike.title,
+            snippet: 'Stolen:${bike.dateStolen}',
+            onTap: () {
+              showBikeDetailsBottomSheet(context, bike);
+            }),
       );
 
       newMarkers.add(marker);
     }
 
-  setState(() {
-    markers = newMarkers;
-  });
+    setState(() {
+      markers = newMarkers;
+    });
   }
-void getCurrentLocation() async {
+
+  void getCurrentLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.medium,
       );
 
       setState(() {
+        print(position.latitude);
+        print(position.longitude);
         currentPosition = position;
       });
     } catch (e) {
       print("Error getting current location: $e");
     }
   }
-void showBikeDetailsBottomSheet(BuildContext context, Bike bike) {
+
+  void showBikeDetailsBottomSheet(BuildContext context, Bike bike) {
+    print(bike.picture.split(",")[1]);
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -102,7 +128,13 @@ void showBikeDetailsBottomSheet(BuildContext context, Bike bike) {
               ),
               SizedBox(height: 8),
               Text('Title: ${bike.title}'),
-              Text('ID: ${bike.id}'),
+
+              Text("Date Stolen: ${bike.dateStolen}"),
+              Text("Model: ${bike.model}"),
+              Text("Colour: ${bike.colour}"),
+              Text("Contact: ${bike.phone}"),
+              Image.memory(base64Decode(bike.picture.split(',')[1]))
+
               // Add more bike details as needed
             ],
           ),
@@ -111,4 +143,3 @@ void showBikeDetailsBottomSheet(BuildContext context, Bike bike) {
     );
   }
 }
-

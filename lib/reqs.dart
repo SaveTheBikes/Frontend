@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
@@ -48,6 +50,12 @@ Future<bool> verify_token() async {
   print(response.reasonPhrase);
   return response.statusCode == 200;
 }
+Future<bool> report_bike(String title, String model, String colour, DateTime date, File image) async {
+  final response = await http.post(Uri.parse("$url/bikes/addBike"),
+  headers: await header_with_token());
+  return true;
+
+}
 
 class Bike {
   String colour;
@@ -56,6 +64,7 @@ class Bike {
   String picture;
   String title;
   double lat;
+  String phone;
   int id;
   double lon;
   Bike(
@@ -66,16 +75,19 @@ class Bike {
       required this.title,
       required this.lat,
       required this.lon,
+      required this.phone,
       required this.id});
   factory Bike.fromJson(Map<String, dynamic> json) {
+    print(json['id']);
     return Bike(
         colour: json['colour'],
         dateStolen: parseDateString(json['datestolen']),
         model: json['model'],
         picture: json['picture'],
         title: json['title'],
-        lat: json['lat'],
-        lon: json['lon'],
+        lat: json['locationlat'],
+        lon: json['locationlon'],
+        phone: json['phonenumber'],
         id: json['id']);
   }
   static List<Bike> listFromJson(List<dynamic> jsonList) {
@@ -90,6 +102,7 @@ Future<List<Bike>> bikes() async {
   List<Bike> bikes = Bike.listFromJson(jsonList);
   return bikes;
 }
+
 DateTime parseDateString(String dateString) {
   // Define the expected date format
   DateFormat dateFormat = DateFormat("E, d MMM y H:m:s 'GMT'");
@@ -97,3 +110,4 @@ DateTime parseDateString(String dateString) {
   // Parse the date string
   return dateFormat.parse(dateString);
 }
+

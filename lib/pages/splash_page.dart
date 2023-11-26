@@ -17,21 +17,17 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(Duration(seconds: 2)).then((value) {
-    Permission.locationWhenInUse.request().then((value){
-      verify_token().then((value) {
-        if (value) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => MapsPage()));
-        } else {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => LoginPage()));
-        }
+      Permission.locationWhenInUse.request().then((value) {
+        verify_token().then((value) {
+          if (value) {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => MapsPage()));
+          } else {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => LoginPage()));
+          }
+        });
       });
-
-
-    }
-    );
-
     });
   }
 
