@@ -13,6 +13,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +46,15 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 10),
               TextField(
+                controller: phoneController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Phone Number',
+                ),
+              ),
+
+              const SizedBox(height: 10),
+              TextField(
                 obscureText: true,
                 controller: passwordController,
                 decoration: const InputDecoration(
@@ -63,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   onPressed: () {
                     register(emailController.text, nameController.text,
-                            passwordController.text)
+                            passwordController.text, phoneController.text)
                         .then((value) {
                       Navigator.push(
                         context,

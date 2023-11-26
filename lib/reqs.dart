@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
@@ -26,8 +27,8 @@ Future<bool> login(String email, String password) async {
   return true; //test
 }
 
-Future<bool> register(String email, String username, String password) async {
-  var payLoad = {"email": email, "username": username, "password": password};
+Future<bool> register(String email, String username, String password, String phoneNumber) async {
+  var payLoad = {"email": email, "username": username, "password": password, "phonenumber":phoneNumber};
 
   String body = jsonEncode(payLoad);
   final response = await http.post(Uri.parse("$url/auth/register"),
@@ -51,9 +52,25 @@ Future<bool> verify_token() async {
   return response.statusCode == 200;
 }
 Future<bool> report_bike(String title, String model, String colour, DateTime date, File image) async {
+  DateFormat dateFormat = DateFormat("E, d MMM y H:m:s 'GMT'");
+  
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.medium,
+      );
+      
+
+  List<int> imageBytes = image.readAsBytesSync();
+
+  // Encode the bytes to Base64
+  String base64String = base64Encode(imageBytes);
+  
+  var payLoad = {"datestolen":dateFormat.format(date), "title":title,"encodedpicture":base64String, "colour":colour,"model":model,"userID":await getUserIDFromDatabase(), "locationlat":position.latitude,"locationlon":position.longitude };
+  String body = jsonEncode(payLoad);
   final response = await http.post(Uri.parse("$url/bikes/addBike"),
-  headers: await header_with_token());
-  return true;
+  headers: await header_with_token(),body:body);
+  return response.statusCode==200;
+
 
 }
 
@@ -114,11 +131,13 @@ DateTime parseDateString(String dateString) {
 class Profile {
   String username;
   String email;
+  String phoneNumber;
   
 
   Profile({
     required this.username,
     required this.email,
+    required this.phoneNumber
     
   });
 
@@ -128,6 +147,7 @@ class Profile {
     return Profile(
       username: json['accountname'],
       email: json['email'],
+      phoneNumber: json['phonenumber']
       
     );
   }
@@ -151,6 +171,12 @@ Future<Profile> getProfile() async {
     print('Response body: ${response.body}');
     throw Exception('Failed to load profile');
   }
+}
+void logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("userID", "");
+    prefs.setString("access_token", "");
+
 }
 
 

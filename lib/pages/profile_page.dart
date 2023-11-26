@@ -31,15 +31,6 @@ Widget build(BuildContext context) {
         icon: Icon(Icons.arrow_back_ios),
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.report)),
-        IconButton(
-              onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) {
-                  return ProfilePage();
-                }));
-              },
-              icon: Icon(Icons.person)),
       ],
       title: Text('Profile'),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -82,10 +73,18 @@ Widget build(BuildContext context) {
                       Divider(color: Colors.grey),
                       SizedBox(height: 8),
                       Text('Email: ${profile.email}', style: TextStyle(fontSize: 16, color: Colors.grey[700])),
+                      Divider(color: Colors.grey),
+                      SizedBox(height: 8),
+                      Text('Phone Number: ${profile.phoneNumber}', style: TextStyle(fontSize: 16, color: Colors.grey[700])),
+
                       SizedBox(height: 16),
                       ElevatedButton(
-                        onPressed: () {}, 
-                        child: Text('Add Bike'),
+                        onPressed: () {
+                        logout();
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+
+                        }, 
+                        child: Text('Log Out'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue, // background
                           foregroundColor: Colors.white, // foreground

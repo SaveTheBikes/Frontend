@@ -34,6 +34,8 @@ class MapsPageState extends State<MapsPage> {
               onPressed: () {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
+                    logout();
+
                   return LoginPage();
                 }));
               },
@@ -113,7 +115,6 @@ class MapsPageState extends State<MapsPage> {
   }
 
   void showBikeDetailsBottomSheet(BuildContext context, Bike bike) {
-    print(bike.picture.split(",")[1]);
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -134,7 +135,10 @@ class MapsPageState extends State<MapsPage> {
               Text("Model: ${bike.model}"),
               Text("Colour: ${bike.colour}"),
               Text("Contact: ${bike.phone}"),
-              Image.memory(base64Decode(bike.picture.split(',')[1]))
+              Expanded(child: 
+              Image.memory(base64Decode(bike.picture),fit:BoxFit.fill)
+
+              )
 
               // Add more bike details as needed
             ],

@@ -67,7 +67,7 @@ TextField(
             ),
           ),
 TextField(
-            controller: makeController,
+            controller: colourController,
             decoration: const InputDecoration(
               labelText: 'Colour',
             ),
@@ -79,13 +79,13 @@ TextField(
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: _pickDate,
-            child: Text('Pick Date Stolen'),
+            child: Text('Pick Date'),
           ),
           selectedDate != null
               ? Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    '${selectedDate!.toLocal()}',
+                    '${selectedDate!.toLocal().toString().split(" ")[0]}',
                     style: TextStyle(fontSize: 16),
                   ),
                 )
@@ -93,7 +93,7 @@ TextField(
           SizedBox(height: 16),
           ElevatedButton(
             onPressed: _getImage,
-            child: Text('Upload Image of Bike'),
+            child: Text('Upload Image'),
           ),
           image != null
               ? Container(
@@ -116,7 +116,7 @@ TextField(
               // You can access the entered data, image, and date using controllers or state
               // Example:
               print('Form submitted with image: $image, date: $selectedDate');
-              report_bike(titleController.text,makeController.text,colourController.text,selectedDate!,image!).then((value) => Navigator.pop(context));
+              report_bike(titleController.text,makeController.text,colourController.text,selectedDate!,image!).then((value) {if(value){Navigator.pop(context);}});
             },
             child: Text('Submit'),
           ),
